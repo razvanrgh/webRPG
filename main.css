@@ -1,0 +1,99 @@
+body {
+    height: 100vh;
+    width: 100 vw;
+    background-color: #ff906e;
+    color: rgba(255, 255, 255, 0.7);
+    background-image: linear-gradient(#e34a1b, #b02b02);
+    /* background: rgb(185,64,0);
+    background: linear-gradient(0deg, rgba(185,64,0,1) 0%,
+     rgba(193,89,27,1) 40%, rgba(255,223,197,1) 100%); 
+    background-size: 1000px 1000 px; */
+
+}
+
+#bigContainer {
+    display: flex;
+
+}
+
+#leftContainer {
+    width: 70%;
+}
+
+#mineContainer {
+    width: 100px;
+}
+
+#researchButtonContainer {
+    width: 100px;
+}
+
+#valueContainer {
+    display: flex;
+}
+
+button {
+    background-color: rgba(0,0,0,0);
+    color: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#mineButton {
+    width: 80%;
+}
+
+#researchButton {
+
+}
+
+/*removes the inner dotted border that comes with the default button*/ 
+button::-moz-focus-inner {
+    border: 0;
+}
+
+#myProgress {
+    width: 80%;
+    height: 5px;
+    margin-top: 5px;
+    background-color: rgba(0,0,0,0);
+    /* border: 1px solid rgba(255, 255, 255, 0.5) */
+}
+
+#myBar {
+    width: 0;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#valoare {
+    margin-left: 5px;
+}
+
+#rightContainer {
+    width: 30%;
+}
+
+#consoleContainer {
+    height: 300px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#console {
+
+}
+
+#inventoryContainer {
+    height: 150px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-top: 10px;
+}
+
+#inventoryContainer p {
+    margin: 0;
+}
+
+#researchContainer {
+    display: none;
+}
