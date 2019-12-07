@@ -65,7 +65,7 @@ button::-moz-focus-inner {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#valoare {
+#rocksValue {
     margin-left: 5px;
 }
 
@@ -91,9 +91,13 @@ button::-moz-focus-inner {
 }
 
 #inventoryContainer p {
-    margin: 0;
+    margin: 0 0 0 5px;
 }
 
 #researchContainer {
     display: none;
+}
+
+#researchMenuContainer {
+
 }
