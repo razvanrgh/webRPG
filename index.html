@@ -7,25 +7,47 @@
 	<script src="./main.js"></script>
 </head>
 <body>
+	<div id="scavengingContainer">
+		<div id="scavengingBox">
+			<div>scavenging in progress</div>
+			<div class="myProgress">
+				<div class="myBar"></div>
+			</div>
+		</div>
+	</div>
+
 	<div id="bigContainer">
 		<div id="leftContainer">
 			<div id="mineContainer">
 				<button id="mineButton">Mine</button>
-				<div id="myProgress">
-					<div id="myBar"></div>
+				<!-- one progress bar for the mine  button -->
+				<div class="myProgress">
+					<div class="myBar"></div>
+				</div>
+				<!-- and one for each of the robots-->
+				<div class="myProgress">
+					<div class="myBar"></div>
+				</div>
+				<div class="myProgress">
+					<div class="myBar"></div>
+				</div>
+				<div class="myProgress">
+					<div class="myBar"></div>
 				</div>
 			</div>
 			<div id="valueContainer">
 				<p>rocks:</p>
 				<p id="rocksValue"></p>
-				<br/>
-				<p>iron:</p>
+				<br/>				<p>iron:</p>
 				<p id="ironValue"></p>
 			</div>
 		</div>
 		<div id="middleContainer">
 			<div id="researchButtonContainer">
 				<button id="researchButton">research</button>
+			</div>
+			<div id="scavengingButtonContainer">
+				<button id="scavengingButton">scavenge</button>
 			</div>
 		</div>
 		<div id="rightContainer">

@@ -43,7 +43,7 @@ button {
 }
 
 #researchButton {
-
+    margin-bottom: 5px;
 }
 
 /*removes the inner dotted border that comes with the default button*/ 
@@ -51,7 +51,7 @@ button::-moz-focus-inner {
     border: 0;
 }
 
-#myProgress {
+.myProgress {
     width: 80%;
     height: 5px;
     margin-top: 5px;
@@ -59,7 +59,7 @@ button::-moz-focus-inner {
     /* border: 1px solid rgba(255, 255, 255, 0.5) */
 }
 
-#myBar {
+.myBar {
     width: 0;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.5);
@@ -100,4 +100,41 @@ button::-moz-focus-inner {
 
 #researchMenuContainer {
 
+}
+
+#scavengingContainer {
+    margin: 0;
+    padding: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    /*border: 3px solid white;*/
+}
+
+#scavengingBox {
+    height: 50%;
+    width: 50%;
+    border: 2px solid white;
+    margin: 0;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+#scavengingBox div {
+    font-size: 1.5em;
+    font-weight: 700;
+    height: 30%;
+}
+
+#scavengingBox .myProgress {
+    width: 75%;
+    height: 5%;
+    margin-left: 12.5%;
+    
 }
