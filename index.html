@@ -7,11 +7,38 @@
 	<script src="./main.js"></script>
 </head>
 <body>
+	<div id="introAnimationContainer">
+		<h1 id="introParagraph">You are in a spaceship</h1>
+	</div>
+	<div id="creditsContainer">
+		<h1>You've escaped!</h1>
+		<p>Game design by: Cristian Stan and Razvan Gheorghe</p>
+		<p>Code by: Razvan Gheorghe</p>
+		<p id="restart">To play again, please refresh the page</p>
+	</div>
+
 	<div id="scavengingContainer">
 		<div id="scavengingBox">
-			<div>scavenging in progress</div>
-			<div class="myProgress">
-				<div class="myBar"></div>
+			<div id="scavengingProgress">
+				<div>scavenging in progress</div>
+				<div class="myProgress">
+					<div class="myBar"></div>
+				</div>
+			</div>
+			<div id="encounterContainer">
+				<p></p>
+				<button>fight</button>
+				<button>flee</button>
+			</div>
+			<div id="fightContainer">
+				<h2>FIGHT!</h2>
+				<div id="fighterStats">
+					<div id="playerStatsContainer"></div>
+					<div id="enemyStatsContainer"></div>
+				</div>
+				<div id="fightConsole">
+					
+				</div>
 			</div>
 		</div>
 	</div>
@@ -38,8 +65,12 @@
 			<div id="valueContainer">
 				<p>rocks:</p>
 				<p id="rocksValue"></p>
-				<br/>				<p>iron:</p>
+				<br/>
+				<p>iron:</p>
 				<p id="ironValue"></p>
+				<br/>
+				<p>adamant:</p>
+				<p id="adamantValue"></p>
 			</div>
 		</div>
 		<div id="middleContainer">
@@ -57,6 +88,7 @@
 			<div id="inventoryContainer">
 				<p>pickaxe: 1</p>
 				<p>lil' robots: 0</p>
+				<p>weapon: Heavy pipe</p>
 			</div>
 		</div>
 	</div>
@@ -72,6 +104,11 @@
 			<button>Tiny robot 1</button>
 			<button>Tiny robot 2</button>
 			<button>Tiny robot 3</button>
+		</div>
+		<div id="researchRocketContainer">
+			<button>engine</button>
+			<button>chassis</button>
+			<button>terminal</button>
 		</div>
 		<div id="researchMenuContainer">
 			<button>menu</button>

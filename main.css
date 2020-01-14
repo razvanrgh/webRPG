@@ -4,11 +4,6 @@ body {
     background-color: #ff906e;
     color: rgba(255, 255, 255, 0.7);
     background-image: linear-gradient(#e34a1b, #b02b02);
-    /* background: rgb(185,64,0);
-    background: linear-gradient(0deg, rgba(185,64,0,1) 0%,
-     rgba(193,89,27,1) 40%, rgba(255,223,197,1) 100%); 
-    background-size: 1000px 1000 px; */
-
 }
 
 #bigContainer {
@@ -30,6 +25,10 @@ body {
 
 #valueContainer {
     display: flex;
+}
+
+#valueContainer p {
+    margin-left: 5px;
 }
 
 button {
@@ -98,8 +97,8 @@ button::-moz-focus-inner {
     display: none;
 }
 
-#researchMenuContainer {
-
+#researchRocketContainer button {
+    display: none;
 }
 
 #scavengingContainer {
@@ -121,20 +120,124 @@ button::-moz-focus-inner {
     margin: 0;
     background-color: rgba(0,0,0,.5);
     display: flex;
+    
+}
+
+#scavengingProgress {
+    height: 100%;
+    width: 100%;
+    display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
 }
 
-#scavengingBox div {
+#scavengingProgress div {
     font-size: 1.5em;
     font-weight: 700;
     height: 30%;
 }
 
-#scavengingBox .myProgress {
+#scavengingProgress .myProgress {
     width: 75%;
     height: 5%;
     margin-left: 12.5%;
     
+}
+
+#encounterContainer {
+    display: none;
+}
+
+#encounterContainer p {
+    margin-left: 5px;
+}
+
+#encounterContainer button {
+    margin-left: 5px;
+}
+
+#fightContainer {
+    display: none;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#fightContainer h2 {
+    height: 10%;
+    margin: 5% 0 0 0;
+}
+
+#fighterStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    width: 100%;
+}
+
+#fighterStats div {
+    height: 100%;
+    width: 50%
+}
+
+#fighterStats div h4 {
+    margin: 0.5em;
+}
+
+#fighterStats div p {
+    margin: 0.5em;
+}
+
+#fightConsole {
+    height: 55%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#introAnimationContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#introParagraph {
+    font-size: 5em;
+    width: 50%;
+    opacity: 0.1;
+}
+
+#creditsContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#creditsContainer h1 {
+    font-size: 3em;
+}
+
+#creditsContainer p {
+    font-size: 1.5em;
+}
+
+#creditsContainer #restart {
+    font-size: 1em;
+    margin-top: 10em;
 }
