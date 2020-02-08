@@ -20,7 +20,7 @@
 	<div id="scavengingContainer">
 		<div id="scavengingBox">
 			<div id="scavengingProgress">
-				<div>scavenging in progress</div>
+				<div>scavenging...</div>
 				<div class="myProgress">
 					<div class="myBar"></div>
 				</div>
@@ -63,14 +63,25 @@
 				</div>
 			</div>
 			<div id="valueContainer">
-				<p>rocks:</p>
-				<p id="rocksValue"></p>
+				<div>
+					<p>iron:</p>
+					<p id="ironValue"></p>
+				</div>
 				<br/>
-				<p>iron:</p>
-				<p id="ironValue"></p>
+				<div>
+					<p>silicate:</p>
+					<p id="silicateValue"></p>
+				</div>
 				<br/>
-				<p>adamant:</p>
-				<p id="adamantValue"></p>
+				<div>
+					<p>adamant:</p>
+					<p id="adamantValue"></p>
+				</div>
+				<br/>
+				<div>
+					<p>plasma:</p>
+					<p id="plasmaValue"></p>
+				</div>
 			</div>
 		</div>
 		<div id="middleContainer">
@@ -79,36 +90,58 @@
 			</div>
 			<div id="scavengingButtonContainer">
 				<button id="scavengingButton">scavenge</button>
+				<div class="myProgress">
+					<div class="myBar"></div>
+				</div>
 			</div>
 		</div>
 		<div id="rightContainer">
-			<div id="consoleContainer">
-				<div id="console">something</div>
+			<div id="statsContainer">
+				<p>HP - 100</p>
+				<p>attack - 10</p>
+				<p>dodge - 50</p>
 			</div>
 			<div id="inventoryContainer">
-				<p>pickaxe: 1</p>
-				<p>lil' robots: 0</p>
-				<p>weapon: Heavy pipe</p>
+				<p>radar:</p>
+				<p>lil' robots:</p>
+				<p>weapon:</p>
 			</div>
 		</div>
 	</div>
 
 	
 	<div id="researchContainer">
-		<div id="researchPickaxeContainer">
-			<button>pickaxe upgrade 1</button>
-			<button>pickaxe upgrade 2</button>
-			<button>pickaxe upgrade 3</button>
+		<div id="researchRadarContainer">
+			<button>iron radar</button>
+			<p>15 iron and 5 silicate<br/>
+			increases the chance to mine silicate</p>
+			<button>adamant radar</button>
+			<p>25 adamant and 10 silicate<br/>
+			increases the chance to mine silicate</p>
 		</div>
 		<div id="researchRobotContainer">
 			<button>Tiny robot 1</button>
+			<p>20 iron and 15 silicate</p>
 			<button>Tiny robot 2</button>
+			<p>50 iron and 20 silicate</p>
 			<button>Tiny robot 3</button>
+			<p>80 iron and 35 silicate</p>
+		</div>
+		<div id="researchWeaponContainer">
+			<button>Iron mace</button>
+			<p>40 iron</p>
+			<button>iron-adamant sword</button>
+			<p>25 iron and 15 adamant</p>
+			<button>adamant halberd</button>
+			<p>45 adamant</p>
 		</div>
 		<div id="researchRocketContainer">
 			<button>engine</button>
-			<button>chassis</button>
-			<button>terminal</button>
+			<p>90 adamant and plasma</p>
+			<button>shell</button>
+			<p>200 iron and 60 adamant</p>
+			<button>cockpit</button>
+			<p>150 iron and 100 silicate</p>
 		</div>
 		<div id="researchMenuContainer">
 			<button>menu</button>
