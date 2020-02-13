@@ -258,26 +258,26 @@ var scavengeFrame = function(id) {
             if he did, add a piece of text to the encounter paragraph and make the apropriate boolean variable true.
             if the player defeats the monster with one of the boolean variables true (for example isHalberdBP),
             then that button will be visible and accesible for the player*/
-            if (randEncounter >= 90 && randEncounter <= 100) {
+            if (randEncounter >= 90 && randEncounter <= 100 && weaponValue.innerHTML != 'weapon: Ray gun') {
                 //the ray gun spawns on average at 1 in 3 epic monsters
                 //the ray gun doesn't need a blueprint. After you beat the enemy, you equip the ray gun
                 isRaygun = true;
                 rewardWeapon = ', the weapon: Ray gun';
                 console.log('*from the ray gun if* randEncounter = ' + randEncounter);
             }
-            if (randEncounter >= 40 && randEncounter <= 50) {
+            if (randEncounter >= 40 && randEncounter <= 50 && weaponButttons[2].style.display != 'block') {
                 //the halberd blueprint has a chance of 1 in 3 large monsters to spawn
                 isHalberdBP = true;
                 rewardWeapon = ', the blueprint for the adamant halberd';
                 console.log('*from the halberd if* randEncounter = ' + randEncounter);
             }
-            if (randEncounter >= 10 && randEncounter <= 20) {
+            if (randEncounter >= 10 && randEncounter <= 20 && weaponButttons[1].style.display != 'block') {
                 //the sword blueprint has a chance of 1 in 3 small monsters to spawn
                 isSwordBP = true;
                 rewardWeapon = ', the blueprint for the iron-adamant sword';
                 console.log('*from the sword if* randEncounter = ' + randEncounter);
             }
-            if (randEncounter >= 95 && randEncounter <= 100) {
+            if (randEncounter >= 95 && randEncounter <= 100 && plasmaValue.innerHTML != '☑') {
                 //the plasma has a chance of 1 in 6 epic monsters to spawn
                 isPlasma = true;
                 isPlasmaP = ', a container of energy'
@@ -291,17 +291,17 @@ var scavengeFrame = function(id) {
             relevant boolean variable true*/
             randRocket = (Math.floor(Math.random() * 100) + 1);
             //chance to find the engine BP (15%)
-            if(randRocket >= 1 && randRocket <= 15) {
+            if(randRocket >= 1 && randRocket <= 15 && rocketPartsButtons[0].style.display != 'block') {
                 isEngineBP = true;
                 rewardParts = ' and the blueprint for the engine';
             }
             //chance to find the shell BP (35%)
-            if(randRocket >= 15 && randRocket <= 50) {
+            if(randRocket >= 15 && randRocket <= 50 && rocketPartsButtons[1].style.display != 'block') {
                 isShellBP = true;
                 rewardParts = ' and the blueprint for the shell';
             }
             //chance to find the cockpit BP (20%)
-            if(randRocket >= 50 && randRocket <= 70) {
+            if(randRocket >= 50 && randRocket <= 70 && rocketPartsButtons[2].style.display != 'block') {
                 isCockpitBP = true;
                 rewardParts = ' and the blueprint for the cockpit'
             }
