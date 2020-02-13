@@ -91,6 +91,7 @@ ironValue.innerHTML = 0;
 adamantValue.innerHTML = 0;
 console.log(introParagraph.style);
 
+//this is the text that appears in the intro stored in variables
 var textIntro1 = 'ugh, my head hurts';
 var textIntro2 = 'what happened? I was on the spaceship orbiting a planet just a moment ago';
 var textIntro3 = "something must've tripped the console and the terminal has gone haywire";
@@ -102,6 +103,7 @@ var textIntro8 = "They must've flew away, just my luck";
 var textIntro9 = "Well, time to get back to work";
 
 var introAnimation = function(textIntro, isLastParagraph){
+    //replace whatever text we have in the p of the intro with the first parameter 'textIntro'.
     introParagraph.innerHTML = textIntro;
     introParagraph.style.opacity = 0.01;
     opacity = parseInt(introParagraph.style.opacity);
@@ -111,6 +113,8 @@ var introAnimation = function(textIntro, isLastParagraph){
         console.log('opacity = ' + introParagraph.style.opacity);
         //what happens if the opacity is not at 100%
         if(opacity < 1) {
+            //every frame, the opacity of the text increases with 1%. a new frame appears once every 20 ms.
+            //the time it takes to reach 100% from 0 is 2 seconds
             opacity = opacity + 0.01;
             introParagraph.style.opacity = opacity;
         //what happens if the opacity reaches 100%
@@ -141,6 +145,10 @@ var introAnimation = function(textIntro, isLastParagraph){
         }
     }, 20);
 }
+
+/*setTimeout is necessary to wait for the previous introAnimation to end. Which takes 6.5 seconds.
+The second parameter of setTimeout = (previous setTimeout second parameter) + n.
+Where n must be bigger than 6.5 seconds*/
 introAnimation(textIntro1, false);
 setTimeout(function(){
     introAnimation(textIntro2, false)
@@ -177,6 +185,8 @@ var findTypeOfMonster = function(){
     }
 }
 
+//function that checks  if every peace of the rocket is built.
+//if they are, then show the credits 
 var credits = function(){
     if(isEngine && isChassis && isTerminal) {
         creditsContainer.style.display = 'flex';
@@ -188,13 +198,17 @@ var scavengeFrame = function(id) {
     if (width >= 100) {
         clearInterval(id);
         console.log(elem[0]);
+        //reset the scavenge bar back to 0
         width = 0;
         elem[0].style.width = width;
         scavengeContainer.style.display = 'none';
         console.log("done");
+        //make the scavenge button grey-ish and disable it
         scavengeButton.style.border = "2px solid rgba(255, 255, 255, 0.2)";
         scavengeButton.style.color = "rgba(255, 255, 255, 0.3)";
         scavengeButton.setAttribute('disabled', 'true');
+        //as long as the HP is lower than 100, increase it by 1 every second.
+        //if HP reaches 100, stop interval and revert the style of the scavenge button back to normal
         var restoreHPid = setInterval(function(){
             console.log('currentHP = ' + currentHP);
             width = currentHP;
@@ -213,75 +227,106 @@ var scavengeFrame = function(id) {
         }, 1000)
     //what happens if the progress bar is not done
     } else {
+        //increase the width variable by 1
         width++;
         console.log(width);
+        //set the width of the bar in the DOM equal to the value of the variable 'width'
         elem[0].style.width = width + "%";
+        //every frame create a random number. if the number is bigger than 96 then the player
+        //encounters a monster.(3% chance every frame --> average of 3 encounters per scavenge)
         random = (Math.floor(Math.random() * 100) + 1);
         console.log(random);
         if(random > 96) {
+            //clearInterval stops the scavenging to progress
             clearInterval(id);
+            //randEncounter is used to determine the type of monster and the rewards that you get
+            //by defeating the monster. The bigger the number, the stronger the enemy and the bigger the rewards
             randEncounter = Math.floor(Math.random() * 100 + 1)
             findTypeOfMonster();
+            //amount of adamant that you get after defeating the monster. the bigger randEncounter is, the more
+            //adamant you get
             adamantValueFound = Math.floor(0.3 * randEncounter);
+            //the player doesn't know the exact amount of adamant he'll get before fight the enemy
+            //he only knows if it's just a few stones or a 'stash' of them
             if(adamantValueFound <= 15) {
                 adamantValueFoundP = 'a few adamant stones';
             }
             if(adamantValueFound >= 15) {
                 adamantValueFoundP = 'a stash of adamant';
             }
-            //check if you found the blueprint for something (10% chance)
-            //dependent of the type of monster
+            /*check if the player has found something.
+            if he did, add a piece of text to the encounter paragraph and make the apropriate boolean variable true.
+            if the player defeats the monster with one of the boolean variables true (for example isHalberdBP),
+            then that button will be visible and accesible for the player*/
             if (randEncounter >= 90 && randEncounter <= 100) {
+                //the ray gun spawns on average at 1 in 3 epic monsters
+                //the ray gun doesn't need a blueprint. After you beat the enemy, you equip the ray gun
                 isRaygun = true;
                 rewardWeapon = ', the weapon: Ray gun';
                 console.log('*from the ray gun if* randEncounter = ' + randEncounter);
             }
             if (randEncounter >= 40 && randEncounter <= 50) {
+                //the halberd blueprint has a chance of 1 in 3 large monsters to spawn
                 isHalberdBP = true;
                 rewardWeapon = ', the blueprint for the adamant halberd';
                 console.log('*from the halberd if* randEncounter = ' + randEncounter);
             }
             if (randEncounter >= 10 && randEncounter <= 20) {
+                //the sword blueprint has a chance of 1 in 3 small monsters to spawn
                 isSwordBP = true;
                 rewardWeapon = ', the blueprint for the iron-adamant sword';
                 console.log('*from the sword if* randEncounter = ' + randEncounter);
             }
             if (randEncounter >= 95 && randEncounter <= 100) {
+                //the plasma has a chance of 1 in 6 epic monsters to spawn
                 isPlasma = true;
                 isPlasmaP = ', a container of energy'
                 console.log('*from the plasma if* randEncounter = ' + randEncounter);
             }
-            //randRocket (nr. from 1 to 100). Chance to drop BP for parts of rocket
-            //it's independent from randEncounter
+            /*randRocket, like randEncounter, stores a random number from 1 to 100.
+            it is used to check if the player has found the blueprint for a rocket part
+            without being dependent of the type of monster fought.
+            Any rocket part blueprint can be found on any type of monster.
+            When found, it adds a piece of text to the encounter paragraph and makes the
+            relevant boolean variable true*/
             randRocket = (Math.floor(Math.random() * 100) + 1);
             //chance to find the engine BP (15%)
             if(randRocket >= 1 && randRocket <= 15) {
                 isEngineBP = true;
                 rewardParts = ' and the blueprint for the engine';
             }
-            //chance to find the chassis BP (35%)
+            //chance to find the shell BP (35%)
             if(randRocket >= 15 && randRocket <= 50) {
                 isShellBP = true;
                 rewardParts = ' and the blueprint for the shell';
             }
-            //chance to find the terminal BP (20%)
+            //chance to find the cockpit BP (20%)
             if(randRocket >= 50 && randRocket <= 70) {
                 isCockpitBP = true;
                 rewardParts = ' and the blueprint for the cockpit'
             }
             console.log("randEncounter = " + randEncounter);
+            //after all the if's have been checked, the encounter text is created with the string variables.
+            //isPlasmaP, rewardWeapon and rewardParts are by default empty strings (ex: rewardParts = '').
+            //So if none of the conditions of the rocket parts' ifs have been met, nothing will appear in place of rewardParts.
             textEncounter.innerHTML = 'A ' + enemy.name 
-            + ' has appeard. It has '
+            + ' has appeared. It has '
             + enemy.hp + 'hp and '
             + enemy.attack + ' attack. It seems to protect ' + adamantValueFoundP 
             + isPlasmaP + rewardWeapon + rewardParts
             + '. What will you do?';
+            //after everything is created, hide the scavange progress screen
+            //and display the encounter screen with the text and 'fight' and 'flee' buttons
             scavengeProgress.style.display = 'none';
             encounterContainer.style.display = 'block';
         }
     }
 }
 
+/*resetRewards has the purpose of reseting the boolean variables to
+their default state: false. otherwise, for example, if the player encounters an epic monster that protects a ray gun,
+isRaygun var is set to true and flee, the next encounter can be with a small monster that would've protected no blueprint
+but because isRaygun is still set to true and after defeating the small monster, he will receive the raygun.*/
 var resetRewards = function(){
     isSwordBP = false;
     isHalberdBP = false;
@@ -315,36 +360,38 @@ mineButon.addEventListener('click', function(e){
             ironValue.innerHTML = parseInt(ironValue.innerHTML) + 1;
             isSilicate = silicateChance();
             console.log(radarValue.innerHTML);
-            //chance to mine iron at pickaxe lvl 1 is 15%
+            //chance to mine silicate without radar is 15%
             if(radarValue.innerHTML === "radar:"){
                 console.log('pickaxe lvl is 1');
-                if(isSilicate > 85) {
+                if(isSilicate >= 85) {
                     silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
                 }
-                //chance to mine iron at pickaxe lvl 2 is 30%
+                //chance to mine silicate with iron radar is 30%
             } else if(radarValue.innerHTML === "radar: iron"){
                 console.log('pickaxe lvl is 2');
-                if(isSilicate > 70){
+                if(isSilicate >= 70){
                     silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
                 }
-                //chance to mine iron at pickaxe lvl 3 is 50%
+                //chance to mine silicate with adamant radar is 50%
             } else if (radarValue.innerHTML === "radar: adamant"){
                 console.log('pickaxe lvl is 3');
-                if(isSilicate > 50) {
+                if(isSilicate >= 50) {
                     silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
                 }
             } else{
                 console.log("nope");
             }
+            //reset the mine bar back to 0 width
             width = 0;
             elem[1].style.width = width;
+            //make the button active again
             mineButon.removeAttribute("disabled");
             console.log("done");
             console.log(isSilicate);
         //what happens if the progress bar is not done
         } else {
-        width++;
-        elem[1].style.width = width + "%";
+            width++;
+            elem[1].style.width = width + "%";
         }
     }
 })
@@ -368,12 +415,15 @@ function radarUpgradeListener(index) {
     if(index == 0 && ironValue.innerHTML >= 15 && silicateValue.innerHTML >= 5){
         console.log("radar upgrade number " + (index + 1));
         radarValue.innerHTML = "radar: iron";
+        //reduce the opacity of the button and disable it
         radarUpgradeButtons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         radarUpgradeButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
         radarUpgradeButtons[index].setAttribute('disabled', 'true');
         ironValue.innerHTML = ironValue.innerHTML - 15;
         silicateValue.innerHTML = silicateValue.innerHTML - 5;
+        //make radar visible in the inventoryContainer
         radarValue.style.display = 'block';
+        //make the next radar button visible
         radarUpgradeButtons[index + 1].style.display = 'block'
     }else if(index == 1 && adamantValue.innerHTML >= 25 && silicateValue.innerHTML >= 10){
         console.log("radar upgrade number " + (index + 1));
@@ -390,10 +440,6 @@ function radarUpgradeListener(index) {
 }
 
 function robotUpgradeListener(index) {
-    
-    if(index < 2){
-        
-    }
     var width = 1;
     //because the interval is set at 10ms, the width will increase
     //1% every 10ms. => progress bar of 1 second
@@ -404,6 +450,7 @@ function robotUpgradeListener(index) {
         robotsUpgradeButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
         robotsUpgradeButtons[index].setAttribute('disabled', 'true');
         robotsValue.style.display = 'block';
+        //make the next robot button visible
         robotsUpgradeButtons[index + 1].style.display = 'block';
         ironValue.innerHTML = parseInt(ironValue.innerHTML) - 20;
         silicateValue.innerHTML = parseInt(silicateValue.innerHTML) - 15;
@@ -414,6 +461,7 @@ function robotUpgradeListener(index) {
         robotsUpgradeButtons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         robotsUpgradeButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
         robotsUpgradeButtons[index].setAttribute('disabled', 'true');
+        //make the next robot button visible
         robotsUpgradeButtons[index + 1].style.display = 'block';
         ironValue.innerHTML = parseInt(ironValue.innerHTML) - 50;
         silicateValue.innerHTML = parseInt(silicateValue.innerHTML) - 20;
@@ -439,22 +487,19 @@ function robotUpgradeListener(index) {
         ironValue.innerHTML = parseInt(ironValue.innerHTML) + 1;
         isSilicate = silicateChance();
         console.log(radarValue.innerHTML);
-        //chance to mine iron at pickaxe lvl 1 is 10%
+        //chance to mine silicate with no radar is 15%
         if(radarValue.innerHTML === "radar:"){
-            console.log('pickaxe lvl is 1');
-            if(isSilicate === 10) {
+            if(isSilicate >= 85) {
                 silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
             }
-            //chance to mine iron at pickaxe lvl 2 is 20%
+            //chance to mine silicate with an iron radar is 30%
         } else if(radarValue.innerHTML === "radar: iron"){
-            console.log('pickaxe lvl is 2');
-            if(isSilicate > 8){
+            if(isSilicate >= 70){
                 silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
             }
-            //chance to mine iron at pickaxe lvl 3 is 30%
+            //chance to mine silicate with an adamant radar is 50%
         } else if (radarValue.innerHTML === "radar: adamant"){
-            console.log('pickaxe lvl is 3');
-            if(isSilicate > 7) {
+            if(isSilicate >= 50) {
                 silicateValue.innerHTML = parseInt(silicateValue.innerHTML) + 1;
             }
         } else{
@@ -475,6 +520,7 @@ function robotUpgradeListener(index) {
 function weaponListener(index){
     // iron mace
     if(index == 0 && parseInt(ironValue.innerHTML) >= 40) {
+        //make the button grey and disable it
         weaponButttons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         weaponButttons[index].style.color = "rgba(255, 255, 255, 0.3)";
         weaponButttons[index].setAttribute('disabled', 'true');
@@ -484,8 +530,11 @@ function weaponListener(index){
         weaponValue.innerHTML = 'weapon: Iron mace';
         attackValue.innerHTML = 'attack - 15';
         dodgeValue.innerHTML = 'dodge - 15';
+        //display the stats of the player
         statsContainer.style.display = 'block';
+        //display the scavenging button
         scavengeingButtonContainer.style.display = 'block';
+        //display the weapon in the inventoryContainer
         weaponValue.style.display = 'block';
     // iron-adamant sword
     } else if(index == 1 && parseInt(ironValue.innerHTML) >= 25 
@@ -520,7 +569,6 @@ function weaponListener(index){
 
 function rocketPartsListener(index){
     //what happens when you press the first button (engine)
-    //and you have enough resources (10 adamant)
     if(index == 0 && adamantValue.innerHTML >= 90 && plasmaValue.innerText == '☑'){
         rocketPartsButtons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         rocketPartsButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
@@ -529,7 +577,6 @@ function rocketPartsListener(index){
         isEngine = true;
         credits();
         //what happens when you press the second button (shell)
-        //and you have enough resources (20 adamant)
     } else if(index == 1 && ironValue.innerHTML >= 200 && adamantValue.innerHTML >= 60) {
         rocketPartsButtons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         rocketPartsButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
@@ -539,7 +586,6 @@ function rocketPartsListener(index){
         isChassis = true;
         credits();
         //what happens when you press the third button (cockpit)
-        //and you have enough resources (30 iron)
     } else if(index == 2 && ironValue.innerHTML >= 150 && silicateValue.innerHTML >= 100) {
         rocketPartsButtons[index].style.border = "2px solid rgba(255, 255, 255, 0.2)";
         rocketPartsButtons[index].style.color = "rgba(255, 255, 255, 0.3)";
@@ -584,6 +630,8 @@ scavengeButton.addEventListener('click', function(e){
     console.log(scavengeContainer);
     encounterContainer.style.display = 'none';
     scavengeContainer.style.display = 'flex';
+    //set isFirstBattle to true so that the hp is restored
+    //must see if this is still uselful.
     isFirstBattle = true;
     //because the interval is set at 10ms, the width will increase
     //1% every 10ms. => progress bar of 1 second
@@ -596,8 +644,6 @@ fleeButton.addEventListener('click', function(e){
     encounterContainer.style.display = 'none';
     scavengeProgress.style.display = 'flex';
     resetRewards();
-    //everything from here until the rest of the listener should be put
-    //in a variable as a function. the fight button also uses it.
     width = parseInt(elem[0].style.width);
     //because the interval is set at 10ms, the width will increase
     //1% every 10ms. => progress bar of 1 second
@@ -661,17 +707,23 @@ fightButton.addEventListener('click', function(e) {
             console.log(randDodge);
             // if the index is odd, this if's condition is met
             if(i%2){
+                //if the dodge stat of the player is bigger than the random number randDodge,
+                //then the player does not take damage and an appropiate text is displayed
                 if(dodgePlayer > randDodge) {
                     p = document.createElement('p');
                     p.innerText = 'You dodged!';
+                    //prepend method is used so that the new fight info always comees first
                     fightConsole.prepend(p);
+                //what happens if the player doesn't dodge
                 } else {
                     hpPlayer = hpPlayer - attackEnemy;
+                    //select and change the hp from stats according to the damage received
                     var pHpPlayer = divStatsList[0].querySelector('p');
                     pHpPlayer.innerHTML = hpPlayer + ' hp';
                     p = document.createElement('p');
                     p.innerText = 'The monster attacked you. you lost ' 
                     + attackEnemy + ' health';
+                    //prepend method is used so that the new fight info always comees first
                     fightConsole.prepend(p);
                     console.log('the player hp is equal to ' + hpPlayer);
                 }
@@ -680,9 +732,12 @@ fightButton.addEventListener('click', function(e) {
             if (hpPlayer < 1){
                 clearInterval(interval);
                 currentHP = 1;
-                elem[5].style.width = width + '%';
+                elem[5].style.width = currentHP + '%';
                 hpValue.innerHTML = 'HP - ' + currentHP;
                 //clears the stats that were created when pressed the fight button
+                /*while the list has children, remove the first one
+                the second children becomes the first and the cycle continues
+                until there is no first child*/
                 while(divStatsList[0].firstChild && divStatsList[1].firstChild){
                     divStatsList[0].removeChild(divStatsList[0].firstChild);
                     divStatsList[1].removeChild(divStatsList[1].firstChild);                    
@@ -700,19 +755,21 @@ fightButton.addEventListener('click', function(e) {
                 var restoreHPid = setInterval(function(){
                     console.log('currentHP = ' + currentHP);
                     width = currentHP;
+                    //what happens when the HP is at 100
                     if(currentHP >= 100) {
                         clearInterval(restoreHPid);
                         width = 0;
                         scavengeButton.style.border = "2px solid rgba(255, 255, 255, 0.5)";
                         scavengeButton.style.color = "rgba(255, 255, 255, 0.7)";
                         scavengeButton.removeAttribute('disabled');
+                    //what happens when the HP is below 100
                     } else {
                         currentHP++
                         width = currentHP;
                         elem[5].style.width = width + '%';
                         hpValue.innerText = 'HP - ' + currentHP;
                     }
-                }, 1000)
+                }, 1000)//the duration of one tick of one HP regen in ms
             }
             // if the index is even, this if's condition is met
             if(!(i%2)){
@@ -735,6 +792,9 @@ fightButton.addEventListener('click', function(e) {
                 hpValue.innerText = 'HP - ' + currentHP;
                 //adding the adamantium adamantValueFound to the DOM
                 adamantValue.innerHTML = parseInt(adamantValue.innerHTML) + adamantValueFound;
+                //check if the monster was protecting something
+                //if he did, unlock the button for the respective blueprint
+                //or get the weapon/resource
                 if(isSwordBP) {
                     weaponButttons[1].style.display = 'block';
                 }
@@ -761,6 +821,9 @@ fightButton.addEventListener('click', function(e) {
                     rocketPartsButtons[2].style.display = 'block';
                 }
                 //clears the stats that were created when pressed the fight button
+                /*while the list has children, remove the first one
+                the second children becomes the first and the cycle continues
+                until there is no first child*/
                 while(divStatsList[0].firstChild && divStatsList[1].firstChild){
                     divStatsList[0].removeChild(divStatsList[0].firstChild);
                     divStatsList[1].removeChild(divStatsList[1].firstChild);                    
@@ -771,8 +834,6 @@ fightButton.addEventListener('click', function(e) {
                 scavengeProgress.style.display = 'flex';
                 fightContainer.style.display = 'none';
                 resetRewards();
-                //everything from here until the rest of the listener should be put
-                //in a variable as a function. the flee button also uses it.
                 width = parseInt(elem[0].style.width);
                 //because the interval is set at 10ms, the width will increase
                 //1% every 10ms. => progress bar of 1 second
@@ -782,6 +843,7 @@ fightButton.addEventListener('click', function(e) {
             }
         }, 1500);
     }
+    //call the function declared above
     autoCombat();
 });
 
