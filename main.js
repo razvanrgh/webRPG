@@ -224,7 +224,7 @@ var scavengeFrame = function(id) {
                 elem[5].style.width = width + '%';
                 hpValue.innerText = 'HP - ' + currentHP;
             }
-        }, 1000)
+        }, 750)
     //what happens if the progress bar is not done
     } else {
         //increase the width variable by 1
@@ -769,7 +769,7 @@ fightButton.addEventListener('click', function(e) {
                         elem[5].style.width = width + '%';
                         hpValue.innerText = 'HP - ' + currentHP;
                     }
-                }, 1000)//the duration of one tick of one HP regen in ms
+                }, 750)//the duration of one tick of one HP regen in ms
             }
             // if the index is even, this if's condition is met
             if(!(i%2)){
